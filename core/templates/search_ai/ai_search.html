@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Search - Lost & Found</title>
+</head>
+<body>
+    <h1>AI Search (Ollama)</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="query">Describe what you're looking for:</label><br>
+        <textarea name="query" id="query" rows="3" cols="60">{{ query_text }}</textarea><br><br>
+        <button type="submit">Search with AI</button>
+    </form>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    {% if filters %}
+        <h3>Interpreted Filters (from LLM)</h3>
+        <pre>{{ filters|safe }}</pre>
+    {% endif %}
+
+    <hr>
+
+    <h2>Results</h2>
+    {% if items %}
+        <ul>
+            {% for item in items %}
+                <li>
+                    <strong>{{ item.item_name }}</strong>
+                    <br>Type: {{ item.get_item_type_display }}
+                    <br>Description: {{ item.description }}
+                    <br>Category: {{ item.category }}
+                    <br>Color: {{ item.color }}
+                    <br>Location: {{ item.location }}
+                    <br>Date: {{ item.date_lost_or_found }}
+                    <br>Reported by: {{ item.reported_by.username }}
+                    {% if item.image %}
+                        <br><img src="{{ item.image.url }}" width="150">
+                    {% endif %}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No matching items found.</p>
+    {% endif %}
+
+    <p><a href="{% url 'dashboard' %}">Back to Dashboard</a></p>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Claims</title>
+</head>
+<body>
+    <h1>My Claims</h1>
+
+    {% if claims %}
+        <ul>
+            {% for claim in claims %}
+                <li>
+                    <strong>Item:</strong> {{ claim.item.item_name }} ({{ claim.item.get_item_type_display }})<br>
+                    <strong>Status:</strong> {{ claim.get_status_display }}<br>
+                    <strong>Submitted on:</strong> {{ claim.created_at }}<br>
+                    <strong>Your message:</strong> {{ claim.message }}<br>
+                    {% if claim.decision_note %}
+                        <strong>Staff note:</strong> {{ claim.decision_note }}<br>
+                    {% endif %}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not submitted any claims yet.</p>
+    {% endif %}
+
+    <p><a href="{% url 'dashboard' %}">Back to Dashboard</a></p>
+</body>
+</html>

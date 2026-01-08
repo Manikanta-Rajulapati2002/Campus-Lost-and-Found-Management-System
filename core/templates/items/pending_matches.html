@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pending Matches</title>
+</head>
+<body>
+
+<h1>Pending Match Verifications</h1>
+
+{% if matches %}
+    <ul>
+        {% for found in matches %}
+            <li>
+                <h3>Found Item: {{ found.item_name }}</h3>
+
+                <p><strong>Found By:</strong> {{ found.reported_by.username }}</p>
+                <p><strong>Found Location:</strong> {{ found.location }}</p>
+                <p><strong>Date Found:</strong> {{ found.date_found }}</p>
+                <p><strong>Description:</strong> {{ found.description }}</p>
+
+                {% if found.image %}
+                    <img src="{{ found.image.url }}" width="200"><br>
+                {% endif %}
+
+                <hr>
+
+                <h3>Lost Item Report: {{ found.matched_lost_item.item_name }}</h3>
+
+                <p><strong>Lost By:</strong> {{ found.matched_lost_item.reported_by.username }}</p>
+                <p><strong>Lost Location:</strong> {{ found.matched_lost_item.location }}</p>
+                <p><strong>Lost Description:</strong> {{ found.matched_lost_item.description }}</p>
+
+                {% if found.matched_lost_item.image %}
+                    <img src="{{ found.matched_lost_item.image.url }}" width="200"><br>
+                {% endif %}
+
+                <hr>
+
+                <p>
+                    <a href="{% url 'approve_match' found.id %}">Approve Match</a> |
+                    <a href="{% url 'reject_match' found.id %}">Reject Match</a>
+                </p>
+
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No pending matches.</p>
+{% endif %}
+
+<p><a href="{% url 'dashboard' %}">Back to Dashboard</a></p>
+
+</body>
+</html>

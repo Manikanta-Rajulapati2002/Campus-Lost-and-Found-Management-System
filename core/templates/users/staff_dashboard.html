@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block title %}Staff Dashboard{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Admin / Staff Dashboard</h2>
+
+<!-- ===================== -->
+<!-- ITEM OVERVIEW SECTION -->
+<!-- ===================== -->
+<div class="row mb-4">
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-primary">
+            <div class="card-body text-center">
+                <h5 class="text-primary">Total Lost Items</h5>
+                <h3>{{ total_lost }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-success">
+            <div class="card-body text-center">
+                <h5 class="text-success">Total Found Items</h5>
+                <h3>{{ total_found }}</h3>
+            </div>
+        </div>
+    </div>
+
+<!--<div class="col-md-3">
+        <div class="card shadow-sm border-warning">
+            <div class="card-body text-center">
+                <h5 class="text-warning">Unmatched Lost</h5>
+                <h3>{{ unmatched_lost }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-warning">
+            <div class="card-body text-center">
+                <h5 class="text-warning">Unmatched Found</h5>
+                <h3>{{ unmatched_found }}</h3>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<!-- Returned Items -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card shadow-sm border-info">
+            <div class="card-body text-center">
+                <h5 class="text-info">Returned Items</h5>
+                <h3>{{ returned_items }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== -->
+<!-- CLAIMS OVERVIEW       -->
+<!-- ===================== -->
+<h4 class="mt-4 mb-3">Claims Overview</h4>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm border-danger">
+            <div class="card-body text-center">
+                <h5 class="text-danger">Pending Claims</h5>
+                <h3>{{ pending_claims }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-success">
+            <div class="card-body text-center">
+                <h5 class="text-success">Approved Claims</h5>
+                <h3>{{ approved_claims }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-secondary">
+            <div class="card-body text-center">
+                <h5 class="text-secondary">Rejected Claims</h5>
+                <h3>{{ rejected_claims }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== -->
+<!-- QUICK ACTIONS -->
+<!-- ===================== -->
+<h4 class="mt-4 mb-3">Quick Actions</h4>
+
+<div class="row">
+
+    <div class="col-md-6 mb-3">
+        <a href="{% url 'pending_claims' %}"
+           class="btn btn-danger w-100 p-3 shadow-sm fw-bold">
+            Manage Pending Claims
+        </a>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <a href="{% url 'approved_claims' %}"
+           class="btn btn-success w-100 p-3 shadow-sm fw-bold">
+            View Approved Claims
+        </a>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <a href="{% url 'rejected_claims' %}"
+           class="btn btn-secondary w-100 p-3 shadow-sm fw-bold">
+            View Rejected Claims
+        </a>
+    </div>
+    <div class="col-md-6 mb-3">
+        <a href="{% url 'report_found' %}" class="btn btn-success w-100 mb-2">Report Found Item</a>
+    </div>
+    <div class="col-md-6 mb-3">
+        <a href="{% url 'list_found_items' %}"
+           class="btn btn-outline-primary w-100 p-3 shadow-sm fw-bold">
+            View Found Items
+        </a>
+    </div>
+
+    <div class="col-md-6 mb-3">
+        <a href="{% url 'list_lost_items' %}"
+           class="btn btn-outline-warning w-100 p-3 shadow-sm fw-bold">
+            View Lost Items
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

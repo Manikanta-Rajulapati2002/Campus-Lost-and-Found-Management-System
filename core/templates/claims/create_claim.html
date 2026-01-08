@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Claim</title>
+</head>
+<body>
+
+<h1>Submit Claim for: {{ item.item_name }}</h1>
+
+<p><strong>Color:</strong> {{ item.color }}</p>
+
+<hr>
+
+<h2>Provide Your Claim Details</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Submit Claim</button>
+</form>
+
+<p><a href="{% url 'list_found_items' %}">Back to Found Items</a></p>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Items</title>
+</head>
+<body>
+    <h1>Search Lost & Found Items</h1>
+
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    <hr>
+
+    <h2>Results</h2>
+
+    {% if items %}
+        <ul>
+            {% for item in items %}
+                <li>
+                    <strong>{{ item.item_name }}</strong>
+                    <br>Type: {{ item.get_item_type_display }}
+                    <br>Description: {{ item.description }}
+                    <br>Category: {{ item.category }}
+                    <br>Color: {{ item.color }}
+                    <br>Location: {{ item.location }}
+                    <br>Date: {{ item.date_lost_or_found }}
+                    <br>Reported by: {{ item.reported_by.username }}
+
+                    {% if item.image %}
+                        <br><img src="{{ item.image.url }}" width="150">
+                    {% endif %}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No items found.</p>
+    {% endif %}
+
+    <p><a href="{% url 'dashboard' %}">Back to Dashboard</a></p>
+</body>
+</html>

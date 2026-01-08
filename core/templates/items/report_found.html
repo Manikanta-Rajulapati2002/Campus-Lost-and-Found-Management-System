@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Found Item</title>
+</head>
+<body>
+
+<h1>Report Found Item</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Item Name -->
+    <p>
+        <label>Item Name:</label><br>
+        {{ form.item_name }}
+    </p>
+
+    <!-- Description -->
+    <p>
+        <label>Description:</label><br>
+        {{ form.description }}
+    </p>
+
+    <!-- Category -->
+    <p>
+        <label>Category:</label><br>
+        {{ form.category }}
+    </p>
+
+    <!-- Color -->
+    <p>
+        <label>Color:</label><br>
+        {{ form.color }}
+    </p>
+
+    <!-- Location Found -->
+    <p>
+        <label>Location Found:</label><br>
+        {{ form.location }}
+    </p>
+
+    <!-- Date Found -->
+    <p>
+        <label>Date Found:</label><br>
+        {{ form.date_found }}
+    </p>
+
+    <!-- Time Found -->
+    <p>
+        <label>Time Found </label><br>
+        {{ form.time_found }}
+    </p>
+
+    <!-- Image -->
+    <p>
+        <label>Upload Image:</label><br>
+        {{ form.image }}
+    </p>
+
+    <button type="submit">Submit Found Item</button>
+</form>
+
+<p><a href="{% url 'dashboard' %}">Back to Dashboard</a></p>
+
+</body>
+</html>

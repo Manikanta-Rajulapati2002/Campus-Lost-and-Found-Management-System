@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lost Report Not Found</title>
+</head>
+<body>
+
+<h2>⚠ No Lost Report Found</h2>
+
+<p>
+You are trying to claim this item:
+<strong>{{ item.item_name }} ({{ item.color }})</strong>
+</p>
+
+<p>
+However, you have <strong>not reported any similar item as LOST</strong>.
+To help admins verify ownership, you should report your lost item first.
+</p>
+
+<h3>What do you want to do?</h3>
+
+<!-- Button to report lost item -->
+<a href="{% url 'report_lost' %}">
+    <button>Report Lost Item</button>
+</a>
+<br><br>
+
+<!-- Continue anyway -->
+<a href="{% url 'create_claim' item.id %}?bypass=yes">
+    <button>Continue Without Lost Report</button>
+</a>
+<br><br>
+
+<!-- Cancel -->
+<a href="{% url 'list_found_items' %}">Cancel</a>
+
+</body>
+</html>

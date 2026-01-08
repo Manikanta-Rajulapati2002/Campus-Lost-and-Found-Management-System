@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Lost Item</title>
+</head>
+<body>
+
+<h1>Report Lost Item</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- Item Name -->
+    <p>
+        <label>Item Name:</label><br>
+        {{ form.item_name }}
+    </p>
+
+    <!-- Description -->
+    <p>
+        <label>Description:</label><br>
+        {{ form.description }}
+    </p>
+
+    <!-- Category -->
+    <p>
+        <label>Category:</label><br>
+        {{ form.category }}
+    </p>
+
+    <!-- Color -->
+    <p id="colorField">
+        <label>Color:</label><br>
+        {{ form.color }}
+    </p>
+
+    <!-- Location -->
+    <p>
+        <label>Location:</label><br>
+        {{ form.location }}
+    </p>
+
+    <!-- Date Lost -->
+    <p>
+        <label>Date Lost:</label><br>
+        {{ form.date_lost }}
+    </p>
+
+    <!-- Exact Time Lost -->
+    <p>
+        <label>What is the when you lost your Item?</label><br>
+        {{ form.time_lost_exact }}
+    </p>
+
+    <h3>OR</h3>
+
+    <!-- Time Range -->
+    <p>
+        <label>Lost Between (From):</label><br>
+        {{ form.time_lost_from }}
+    </p>
+
+    <p>
+        <label>Lost Between (To):</label><br>
+        {{ form.time_lost_to }}
+    </p>
+
+    <!-- Image -->
+    <p>
+        <label>Upload Image:</label><br>
+        {{ form.image }}
+    </p>
+
+    <button type="submit">Submit Lost Item</button>
+</form>
+
+<p><a href="{% url 'dashboard' %}">Back to Dashboard</a></p>
+
+</body>
+</html>

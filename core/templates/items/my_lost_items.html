@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Lost Items</title>
+</head>
+<body>
+
+<h1>My Lost Items</h1>
+
+{% if items %}
+    <ul>
+        {% for item in items %}
+            <li>
+                <strong>{{ item.item_name }}</strong><br>
+                Description: {{ item.description }}<br>
+                Category: {{ item.category }}<br>
+                Color: {{ item.color }}<br>
+                Location: {{ item.location }}<br>
+                Date Lost: {{ item.date_lost }}<br>
+
+                {% if item.image %}
+                    <br><img src="{{ item.image.url }}" width="150">
+                {% endif %}
+            </li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't reported any lost items yet.</p>
+{% endif %}
+
+<p>
+    <a href="{% url 'list_lost_items' %}">View All Lost Items</a> |
+    <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Duplicate Warning</title>
+</head>
+<body>
+
+    <h2>⚠ Possible Duplicate Report</h2>
+
+    <p>You previously reported a similar <strong>LOST</strong> item.  
+    Are you sure this is a different item you found?</p>
+
+    <h3>Your similar lost items:</h3>
+    <ul>
+        {% for item in similar_items %}
+            <li>
+                {{ item.item_name }} ({{ item.color }}) — Lost at {{ item.location }} on {{ item.date_lost_or_found }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <!-- Hidden field to signal bypass -->
+        <input type="hidden" name="bypass_warning" value="yes">
+
+        <button type="submit">Proceed Anyway</button>
+    </form>
+
+    <br>
+    <a href="{% url 'dashboard' %}">Cancel</a>
+
+</body>
+</html>

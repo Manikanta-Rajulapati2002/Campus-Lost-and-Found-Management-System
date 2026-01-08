@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report Found Item</title>
+</head>
+<body>
+
+<h2>Found Item Report for: {{ lost_item.item_name }}</h2>
+
+<p><strong>Description:</strong> {{ lost_item.description }}</p>
+<p><strong>Color:</strong> {{ lost_item.color }}</p>
+<p><strong>Category:</strong> {{ lost_item.category }}</p>
+<p><strong>Lost At:</strong> {{ lost_item.location }}</p>
+
+<hr>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <p>
+        <label>Where did you find it?</label><br>
+        {{ form.location }}
+    </p>
+
+    <p>
+        <label>Date Found:</label><br>
+        {{ form.date_found }}
+    </p>
+
+    <p>
+        <label>Time Found (optional):</label><br>
+        {{ form.time_found }}
+    </p>
+
+    <p>
+        <label>Description (optional):</label><br>
+        {{ form.description }}
+    </p>
+
+    <p>
+        <label>Upload Photo (required):</label><br>
+        {{ form.image }}
+    </p>
+
+    <button type="submit">Submit Found Information</button>
+</form>
+
+<p><a href="{% url 'list_lost_items' %}">Back to Lost Items</a></p>
+
+</body>
+</html>

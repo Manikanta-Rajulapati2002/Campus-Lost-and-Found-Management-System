@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up - Lost & Found</title>
+</head>
+<body>
+
+    <h1>Create an Account</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Username -->
+        <p>
+            <label>Username:</label><br>
+            {{ form.username }}
+        </p>
+
+        <!-- First & Last Name -->
+        <p>
+            <label>First Name:</label><br>
+            {{ form.first_name }}
+        </p>
+
+        <p>
+            <label>Last Name:</label><br>
+            {{ form.last_name }}
+        </p>
+
+        <!-- Email -->
+        <p>
+            <label>Email:</label><br>
+            {{ form.email }}
+        </p>
+
+        <!-- Role -->
+        <p>
+            <label>Select Role:</label><br>
+            {{ form.role }}
+        </p>
+
+        <!-- Date of Birth -->
+        <p>
+            <label>Date of Birth:</label><br>
+            {{ form.date_of_birth }}
+        </p>
+
+        <!-- Phone -->
+        <p>
+            <label>Phone Number:</label><br>
+            {{ form.phone }}
+        </p>
+
+        <!-- Address Fields -->
+        <p>
+            <label>Address Line 1:</label><br>
+            {{ form.address_line1 }}
+        </p>
+
+        <p>
+            <label>Address Line 2 (Optional):</label><br>
+            {{ form.address_line2 }}
+        </p>
+
+        <p>
+            <label>City:</label><br>
+            {{ form.city }}
+        </p>
+
+        <p>
+            <label>State:</label><br>
+            {{ form.state }}
+        </p>
+
+        <p>
+            <label>Zip Code:</label><br>
+            {{ form.zip_code }}
+        </p>
+
+        <!-- Student Only Fields -->
+        <div id="majorField">
+            <p>
+                <label>What's your major? </label><br>
+                {{ form.major }}
+            </p>
+        </div>
+
+        <!-- Faculty Only Fields -->
+        <div id="facultyField">
+            <p>
+                <label>Faculty Role </label><br>
+                {{ form.faculty_role }}
+            </p>
+        </div>
+        <!-- Staff Only Field -->
+
+        <div id="staffField">
+            <p>
+                <label>Staff Role </label><br>
+                {{ form.staff_role }}
+            </p>
+        </div>
+
+        <!-- Passwords -->
+        <p>
+            <label>Password:</label><br>
+            {{ form.password1 }}
+        </p>
+
+        <p>
+            <label>Confirm Password:</label><br>
+            {{ form.password2 }}
+        </p>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+
+
+    <!-- Simple JS to hide/show fields based on role -->
+    <script>
+        function updateRoleFields() {
+            let role = document.getElementById("id_role").value;
+
+            let majorDiv = document.getElementById("majorField");
+            let facultyDiv = document.getElementById("facultyField");
+            let staffDiv = document.getElementById("staffField");
+            // Student → show Major only
+            if (role === "student") {
+                majorDiv.style.display = "block";
+                facultyDiv.style.display = "none";
+                staffDiv.style.display = "none";
+            }
+
+            // Faculty → show Faculty Role only
+            else if (role === "faculty") {
+                majorDiv.style.display = "none";
+                facultyDiv.style.display = "block";
+                staffDiv.style.display = "none";
+            }
+
+            else if (role === "staff") {
+                majorDiv.style.display = "none";
+                facultyDiv.style.display = "none";
+                staffDiv.style.display = "block";
+            }
+            // Staff/Admin → show none
+            else {
+                majorDiv.style.display = "none";
+                facultyDiv.style.display = "none";
+                staffDiv.style.display = "none";
+            }
+        }
+
+        // Initial load
+        document.addEventListener("DOMContentLoaded", updateRoleFields);
+
+        // Update on role change
+        document.getElementById("id_role").addEventListener("change", updateRoleFields);
+    </script>
+
+</body>
+</html>

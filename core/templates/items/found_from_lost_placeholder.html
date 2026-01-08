@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Found This Item</title>
+</head>
+<body>
+
+<h2>You selected that you FOUND this item:</h2>
+
+<p><strong>{{ lost_item.item_name }}</strong></p>
+<p>{{ lost_item.description }}</p>
+<p>Location Lost: {{ lost_item.location }}</p>
+
+<p>
+This is a placeholder page.  
+In the next step, we will add the Found Item Form here.
+</p>
+
+<p><a href="{% url 'list_lost_items' %}">Back to Lost Items</a></p>
+
+</body>
+</html>

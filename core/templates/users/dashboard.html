@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Welcome, {{ request.user.username }}!</h2>
+
+<p><strong>Role:</strong> {{ request.user.get_role_display }}</p>
+
+{% if notifications %}
+<div class="alert alert-info">
+    <h5>Notifications</h5>
+    <ul>
+        {% for note in notifications %}
+        <li>
+            {{ note.message }} <br>
+            <small class="text-muted">{{ note.created_at }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="row mt-4">
+
+    <!-- Common user actions -->
+    <div class="col-md-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h4>User Actions</h4>
+                <a href="{% url 'report_lost' %}" class="btn btn-primary w-100 mb-2">Report Lost Item</a>
+                <a href="{% url 'report_found' %}" class="btn btn-success w-100 mb-2">Report Found Item</a>
+                <a href="{% url 'my_lost_items' %}" class="btn btn-outline-primary w-100 mb-2">View my Lost Items</a>
+                <a href="{% url 'list_lost_items' %}" class="btn btn-outline-primary w-100 mb-2">View Lost Items</a>
+                <a href="{% url 'list_found_items' %}" class="btn btn-outline-success w-100 mb-2">View Found Items</a>
+                <a href="{% url 'search_items' %}" class="btn btn-outline-dark w-100 mb-2">Search Items</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- User claims -->
+    <div class="col-md-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h4>Claims</h4>
+                <a href="{% url 'my_claims' %}" class="btn btn-info w-100">My Claims</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% if request.user.role == 'staff' or request.user.role == 'admin' or request.user.is_staff or request.user.is_superuser %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4>Admin Panel</h4>
+                <a href="{% url 'pending_claims' %}" class="btn btn-danger w-100 mb-2">Manage Pending Claims</a>
+                <a href="{% url 'staff_dashboard' %}" class="btn btn-secondary w-100">Staff Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Review Claim</title>
+</head>
+<body>
+
+<h1>Review Claim for: {{ item.item_name }}</h1>
+
+<h3>Claimed By:</h3>
+<p>{{ claim.claimed_by.username }}</p>
+
+<hr>
+
+<h2>Claimant Provided Information</h2>
+<p><strong>Where lost:</strong> {{ claim.where_lost }}</p>
+<p><strong>When lost:</strong> {{ claim.when_lost }}</p>
+<p><strong>Identifying Marks:</strong> {{ claim.identifying_marks }}</p>
+<p><strong>User Message:</strong> {{ claim.message }}</p>
+
+<hr>
+
+<h2>Found Item Details</h2>
+<p><strong>Description:</strong> {{ item.description }}</p>
+<p><strong>Found Location:</strong> {{ item.location }}</p>
+<p><strong>Found Date:</strong> {{ item.date_lost_or_found }}</p>
+<p><strong>Color:</strong> {{ item.color }}</p>
+<p><strong>Category:</strong> {{ item.category }}</p>
+
+<hr>
+
+<!-- ========================================= -->
+<!-- NEW SECTION: AUTO-SUGGESTED MATCHES       -->
+<!-- ========================================= -->
+
+<h2>🔍 System Suggested Matches</h2>
+
+{% if auto_matches %}
+    <ul>
+        {% for m in auto_matches %}
+        <li style="margin-bottom: 10px;">
+            <strong>{{ m.lost_item.item_name }}</strong>
+            ({{ m.lost_item.category }} — {{ m.lost_item.color }})<br>
+            <strong>Location:</strong> {{ m.lost_item.location }}<br>
+            <strong>Date Lost:</strong> {{ m.lost_item.date_lost_or_found }}<br>
+
+            <strong>Match Score:</strong> {{ m.score }} / 100  
+            — Confidence: 
+            {% if m.confidence == "high" %}
+                <span style="color: green; font-weight: bold;">High</span>
+            {% elif m.confidence == "medium" %}
+                <span style="color: orange; font-weight: bold;">Medium</span>
+            {% else %}
+                <span style="color: gray;">Low</span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+    <p style="color: gray;">No strong automatic matches found.</p>
+{% endif %}
+
+<hr>
+
+<!-- ========================================= -->
+<!-- EXISTING SECTION: CLAIMANT MATCH CHECK    -->
+<!-- ========================================= -->
+
+<h2>Lost Report Match Check (Claimant's Own Reports)</h2>
+
+{% if claimant_matching_lost %}
+    <h3 style="color: green;">✔ Matching Lost Report Found</h3>
+
+    <ul>
+    {% for lost in claimant_matching_lost %}
+        <li>
+            <strong>{{ lost.item_name }}</strong> — Lost at {{ lost.location }} on {{ lost.date_lost_or_found }}
+            <br>Description: {{ lost.description }}
+        </li>
+    {% endfor %}
+    </ul>
+
+{% else %}
+    <h3 style="color: red;">⚠ No matching lost report found for this claimant</h3>
+{% endif %}
+
+<hr>
+
+<h2>Admin Decision</h2>
+<form method="post">
+    {% csrf_token %}
+
+    <label>Admin Notes (Optional):</label><br>
+    <textarea name="admin_note" rows="3" cols="50"></textarea><br><br>
+
+    <button name="decision" value="approve">Approve Claim</button>
+    <button name="decision" value="reject">Reject Claim</button>
+</form>
+
+</body>
+</html>

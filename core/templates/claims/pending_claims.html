@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pending Claims</title>
+</head>
+<body>
+    <h1>Pending Claims</h1>
+
+    {% if claims %}
+        <ul>
+            {% for claim in claims %}
+                <li>
+                    <strong>Claim #{{ claim.id }}</strong><br>
+                    <strong>Item:</strong> {{ claim.item.item_name }} ({{ claim.item.get_item_type_display }})<br>
+                    <strong>Claimed by:</strong> {{ claim.claimed_by.username }}<br>
+                    <strong>Message:</strong> {{ claim.message }}<br>
+                    <strong>Submitted:</strong> {{ claim.created_at }}<br>
+                    <a href="{% url 'review_claim' claim.id %}">Review this claim</a>
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pending claims.</p>
+    {% endif %}
+
+    <p><a href="{% url 'dashboard' %}">Back to Dashboard</a></p>
+</body>
+</html>

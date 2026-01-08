@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Approved Claims</h2>
+
+{% if claims %}
+    <ul>
+        {% for claim in claims %}
+        <li>
+            <strong>{{ claim.item.item_name }}</strong>  
+            claimed by {{ claim.claimed_by.username }}  
+            on {{ claim.updated_at }}
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No approved claims yet.</p>
+{% endif %}
+
+<a href="{% url 'staff_dashboard' %}" class="btn btn-secondary mt-3">← Back</a>
+
+{% endblock %}

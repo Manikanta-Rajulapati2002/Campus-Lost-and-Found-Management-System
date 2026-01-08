@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Claim Not Allowed</title>
+</head>
+<body>
+    <h1>Claim Not Allowed</h1>
+    <p>You cannot submit a claim for this item.</p>
+    <p>Item: {{ item.item_name }} (status: {{ item.status }}, type: {{ item.item_type }})</p>
+
+    <p><a href="{% url 'list_found_items' %}">Back to Found Items</a></p>
+</body>
+</html>
